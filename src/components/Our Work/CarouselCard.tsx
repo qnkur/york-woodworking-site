@@ -11,11 +11,11 @@ const images = [
   "https://images.unsplash.com/photo-1616486029423-aaa4789e8c9a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=720&q=80",
 ]
 
-export function CarouselCard() {
+export function CarouselCard(props: { title: string; description: string }) {
+  const { title, description } = props
   const slides = images.map((image) => (
-    <Image key={image} src={image} height={220} />
+    <Image key={image} src={image} mah={220} />
   ))
-
   return (
     <Card radius={0} withBorder padding="xl">
       <Box mx={-32} mt={-32}>
@@ -34,36 +34,13 @@ export function CarouselCard() {
 
       <Group justify="space-between" mt="lg">
         <Text fw={500} fz="lg">
-          Forde, Norway
+          {title}
         </Text>
-
-        <Group gap={5}>
-          <IconStar style={{ width: rem(16), height: rem(16) }} />
-          <Text fz="xs" fw={500}>
-            4.78
-          </Text>
-        </Group>
       </Group>
 
       <Text fz="sm" c="dimmed" mt="sm">
-        Relax, rejuvenate and unplug in this unique contemporary Birdbox. Feel
-        close to nature in ultimate comfort. Enjoy the view of the epic mountain
-        range of Blegja and the Førdefjord.
+        {description}
       </Text>
-
-      <Group justify="space-between" mt="md">
-        <div>
-          <Text fz="xl" span fw={500} className={classes.price}>
-            397$
-          </Text>
-          <Text span fz="sm" c="dimmed">
-            {" "}
-            / night
-          </Text>
-        </div>
-
-        <Button radius="md">Book now</Button>
-      </Group>
     </Card>
   )
 }

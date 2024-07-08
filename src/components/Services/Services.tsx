@@ -17,9 +17,8 @@ import {
   IconBuildingStore,
   IconHome,
 } from "@tabler/icons-react"
-import classes from "./FeaturesCards.module.css"
-import { ServicesBanner } from "./ServicesBanner"
-import { CarouselCard } from "./CarouselCard"
+import classes from "./Services.module.css"
+import { BigServiceCard } from "./BigServiceCard"
 
 const mockdata = [
   {
@@ -72,7 +71,7 @@ export function Services() {
       <SimpleGrid cols={{ base: 1, md: 3 }} spacing="xl" mt={50}>
         {features}
       </SimpleGrid>
-      <ServicesBanner />
+      <BigServiceCard />
     </Container>
   )
 }

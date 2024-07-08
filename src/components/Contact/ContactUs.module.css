@@ -5,7 +5,14 @@
   @media (max-width: $mantine-breakpoint-sm) {
     font-size: rem(24px);
   }
-  font-family: "EB Garamond", serif;
+  font-family: "Lora", serif;
+}
+
+.wrapper {
+  background-color: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-dark-6)
+  );
 }
 
 .description {

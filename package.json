@@ -11,6 +11,7 @@
   "dependencies": {
     "@mantine/carousel": "^7.11.1",
     "@mantine/core": "^7.11.1",
+    "@mantine/form": "^7.11.1",
     "@mantine/hooks": "^7.11.1",
     "@tabler/icons-react": "^3.9.0",
     "embla-carousel-react": "^7.1.0",
