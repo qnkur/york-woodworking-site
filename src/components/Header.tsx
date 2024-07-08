@@ -10,11 +10,16 @@ import {
 export default function Header() {
   return (
     <Box
-      bg={"gray.0"}
       px="xl"
       py="lg"
       style={{
         boxShadow: "0px 0px 50px rgba(0, 0, 0, 0.15)",
+        position: "sticky",
+        top: 0,
+        zIndex: 999, // Adjust the z-index as needed to ensure it overlays correctly
+        backdropFilter: "blur(10px)",
+        //background opacity
+        backgroundColor: "rgba(255, 255, 255, 0.9)",
       }}
     >
       <SimpleGrid
