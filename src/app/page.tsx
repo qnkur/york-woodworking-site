@@ -1,95 +1,71 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
+import Header from "@/components/Header/Header"
+import { Services } from "@/components/Services/Services"
+import { FooterLinks } from "@/components/Footer/FooterLinks"
+import { OurWork } from "@/components/Our Work/OurWork"
+import ContactUs from "@/components/Contact/ContactUs"
+import { useState, useEffect } from "react"
+import { Hero } from "@/components/Hero/Hero"
 
 export default function Home() {
+  const [section, setSection] = useState("home")
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sectionThreshold = 150
+      const sections = ["home", "services", "our-work", "contact-us"]
+      const currentSection = sections.find((sectionId) => {
+        const el = document.getElementById(sectionId)
+        if (el) {
+          const rect = el.getBoundingClientRect()
+          return (
+            rect.top < window.innerHeight - sectionThreshold &&
+            rect.bottom > sectionThreshold
+          )
+        }
+        return false
+      })
+      if (currentSection && currentSection !== section) {
+        setSection(currentSection)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [section])
+
+  // Function to handle section change on click
+  const handleSectionChange = (newSection: any) => {
+    // Optionally, scroll to the section
+    const el = document.getElementById(newSection)
+    const isMobile = window.innerWidth < 990
+    const offset = isMobile ? 130 : 72
+    if (el) {
+      // el.scrollIntoView({ behavior: "smooth" })
+      window.scrollTo({
+        top: el.offsetTop - offset,
+        behavior: "smooth",
+      })
+    }
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <div>
+      <Header onSectionChange={handleSectionChange} section={section} />
+      <div id="home">
+        <Hero />
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div id="services">
+        <Services />
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div id="our-work">
+        <OurWork />
       </div>
-    </main>
-  );
+      <div id="contact-us">
+        <ContactUs />
+      </div>
+      <FooterLinks />
+    </div>
+  )
 }
