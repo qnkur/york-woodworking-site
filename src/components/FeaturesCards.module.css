@@ -28,6 +28,11 @@
   border: rem(1px) solid
     light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-5));
   border-radius: 0;
+  &:hover {
+    scale: 1.05;
+  }
+  cursor: default;
+  transition: all 0.2s ease;
 }
 
 .cardTitle {
