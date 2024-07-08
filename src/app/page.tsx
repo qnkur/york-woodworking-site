@@ -1,33 +1,58 @@
 "use client"
-import Image from "next/image"
-import styles from "./page.module.css"
-import { Box, Stack, Text } from "@mantine/core"
-import { Hero } from "@/components/Hero/Hero"
 import Header from "@/components/Header/Header"
 import { Services } from "@/components/Services/Services"
 import { FooterLinks } from "@/components/Footer/FooterLinks"
 import { OurWork } from "@/components/Our Work/OurWork"
 import ContactUs from "@/components/Contact/ContactUs"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { Hero } from "@/components/Hero/Hero"
 
 export default function Home() {
   const [section, setSection] = useState("home")
-  function handleSectionChange(section: string) {
-    setSection(section)
-    const el = document.getElementById(section)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sectionThreshold = 150
+      const sections = ["home", "services", "our-work", "contact-us"]
+      const currentSection = sections.find((sectionId) => {
+        const el = document.getElementById(sectionId)
+        if (el) {
+          const rect = el.getBoundingClientRect()
+          return (
+            rect.top < window.innerHeight - sectionThreshold &&
+            rect.bottom > sectionThreshold
+          )
+        }
+        return false
+      })
+      if (currentSection && currentSection !== section) {
+        setSection(currentSection)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [section])
+
+  // Function to handle section change on click
+  const handleSectionChange = (newSection: any) => {
+    setSection(newSection)
+    // Optionally, scroll to the section
+    const el = document.getElementById(newSection)
     const isMobile = window.innerWidth < 990
-    const offset = isMobile ? 120 : 72
+    const offset = isMobile ? 130 : 72
     if (el) {
       // el.scrollIntoView({ behavior: "smooth" })
-      // scroll smoothly to el with offset
-      window.scrollBy({
-        top: el.getBoundingClientRect().top - offset,
+      window.scrollTo({
+        top: el.offsetTop - offset,
         behavior: "smooth",
       })
     }
   }
+
   return (
-    <Stack gap={0}>
+    <div>
       <Header onSectionChange={handleSectionChange} section={section} />
       <div id="home">
         <Hero />
@@ -42,6 +67,6 @@ export default function Home() {
         <ContactUs />
       </div>
       <FooterLinks />
-    </Stack>
+    </div>
   )
 }

@@ -36,7 +36,7 @@ export function FooterLinks() {
           </Text>
         </div>
       </Container>
-      <Container className={classes.afterFooter}>
+      <Container className={classes.afterFooter} pb={500}>
         <Text c="dimmed" size="sm">
           © 2024 York Woodworking Ltd. All rights reserved.
         </Text>
