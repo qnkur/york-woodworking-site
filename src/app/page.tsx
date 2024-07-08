@@ -37,7 +37,6 @@ export default function Home() {
 
   // Function to handle section change on click
   const handleSectionChange = (newSection: any) => {
-    setSection(newSection)
     // Optionally, scroll to the section
     const el = document.getElementById(newSection)
     const isMobile = window.innerWidth < 990
