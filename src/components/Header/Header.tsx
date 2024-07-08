@@ -7,7 +7,11 @@ import {
   ThemeIcon,
 } from "@mantine/core"
 
-export default function Header() {
+export default function Header(props: {
+  onSectionChange: (section: string) => void
+  section: string
+}) {
+  const { onSectionChange, section } = props
   return (
     <Box
       px="xl"
@@ -44,6 +48,8 @@ export default function Header() {
             label: { borderRadius: 0 },
             indicator: { borderRadius: 0 },
           }}
+          onChange={(value) => onSectionChange(value)}
+          value={section}
         />
       </SimpleGrid>
     </Box>
