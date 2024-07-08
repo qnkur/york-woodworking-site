@@ -50,6 +50,8 @@ export default function Header(props: {
           }}
           onChange={(value) => onSectionChange(value)}
           value={section}
+          withItemsBorders={false}
+          color="gray"
         />
       </SimpleGrid>
     </Box>
